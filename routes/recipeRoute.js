@@ -3,34 +3,6 @@ const router = express.Router();
 const Recipe = require('../models/recipeModal');
 const fetch = require('node-fetch');
 
-// let count = 0;
-// router.route('/create').post((req, res) => {
-//   count++;
-//   console.log('************************************', count);
-//   const cooking_time = req.body.cooking_time;
-//   const id = req.body.id;
-//   const image_url = req.body.image_url;
-//   const ingredients = req.body.ingredients;
-//   const publisher = req.body.publisher;
-//   const servings = req.body.servings;
-//   const source_url = req.body.source_url;
-//   const title = req.body.title;
-
-//   const newRecipe = new Recipe({
-//     cooking_time,
-//     id,
-//     image_url,
-//     ingredients,
-//     publisher,
-//     servings,
-//     source_url,
-//     title,
-//   });
-//   newRecipe.save();
-// });
-
-// module.exports = router;
-
 let arrayData = [],
   newRecipe,
   title,
@@ -115,31 +87,26 @@ router.route('/create').post((req, res) => {
       const res = await req.json();
 
       for (let i in res) {
-        arrayData.push(res[i]);
-      }
-      console.log('arrayData.length = ', arrayData.length);
-    }
+        cooking_time = res[i].cooking_time;
+        image_url = res[i].image_url;
+        ingredients = res[i].ingredients;
+        publisher = res[i].publisher;
+        servings = res[i].servings;
+        source_url = res[i].source_url;
+        title = res[i].title;
 
-    for (let i = 0; i < arrayData.length; i++) {
-      cooking_time = arrayData[i].cooking_time;
-      image_url = arrayData[i].image_url;
-      ingredients = arrayData[i].ingredients;
-      publisher = arrayData[i].publisher;
-      servings = arrayData[i].servings;
-      source_url = arrayData[i].source_url;
-      title = arrayData[i].title;
-      newRecipe = new Recipe({
-        cooking_time,
-        image_url,
-        ingredients,
-        publisher,
-        servings,
-        source_url,
-        title,
-      });
-      newRecipe.save();
+        newRecipe = new Recipe({
+          cooking_time,
+          image_url,
+          ingredients,
+          publisher,
+          servings,
+          source_url,
+          title,
+        });
+        newRecipe.save();
+      }
     }
-    arrayData.length = 0;
   };
 
   handleClick();
